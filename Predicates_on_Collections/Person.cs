@@ -6,14 +6,10 @@ using System.Threading.Tasks;
 
 namespace Predicates_on_Collections
 {
-    class Person {
-
-        //delegate
-
+    class Person
+    {
+        //getters & setters, Job instance 
         
-
-     
-        //getters & setters, Job instance cuz its a class
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -61,6 +57,7 @@ namespace Predicates_on_Collections
 
 
         //creating lists & a random
+
         List<Person> People = new List<Person>();
         List<String> FirstNames = new List<string>();
         List<String> LastNames = new List<string>();
@@ -158,7 +155,7 @@ namespace Predicates_on_Collections
             Job.populate_JobList();
             for (int i = 0; i < 100; i++)
             {
-                People.Add(new Person(FirstNames[i], LastNames[i], Job.Jobs[i]));
+                People.Add(new Person(FirstNames[i], LastNames[i], Job.jobs[i]));
             }
         }
 
@@ -192,7 +189,8 @@ namespace Predicates_on_Collections
             Console.WriteLine("\n\n\n========================     number of surnames: " + LastNames.Count() + "     ========================\n\n\n");
         }
 
-        public void getAllNames() {
+        public void getAllNames()
+        {
             for (int i = 0; i < FirstNames.Count(); i++)
             {
                 Console.WriteLine(FirstNames[i]);
@@ -200,6 +198,5 @@ namespace Predicates_on_Collections
             Console.WriteLine("\n\n\n========================     number of names: " + FirstNames.Count() + "     ========================\n\n\n");
             getAllSurnames();
         }
-        
     }
 }

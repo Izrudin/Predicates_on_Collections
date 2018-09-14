@@ -9,7 +9,7 @@ namespace Predicates_on_Collections
     class Job 
     {
         //getters&setters
-  
+        
         public string Location { set; get; }
 
         public string Description { set; get; }
@@ -28,7 +28,7 @@ namespace Predicates_on_Collections
      
         //creating lists and a random
         
-        public List<Job> Jobs = new List<Job>();     //public because im using it in the Person class
+        public List<Job> jobs = new List<Job>();     //public because im using it in the Person class
         List<String> Locations = new List<string>();
         List<String> Descriptions = new List<string>();
         List<int> Salaries = new List<int>();
@@ -57,9 +57,10 @@ namespace Predicates_on_Collections
 
         };
 
+        
         //generating methods
 
-
+        //generates a random location and description and stores in a list x100
         public void generate_JobData()
         {
             int JACKPOT = random.Next(1, 20);
@@ -122,14 +123,13 @@ namespace Predicates_on_Collections
                     case 6:
                         Descriptions.Add(description.Unemployed.ToString());
                         unemployed_counter++;
-                        if (!Salaries[i].Equals(0))
-                        {
-                            Salaries[i].Equals(0);
-                        }
-
+                        Salaries[i].Equals(0);
+                        
+                        //one unemployed person receives a milli
+                        
                         if (unemployed_counter.Equals(JACKPOT))
                         {
-                           Salaries[i] = 1000000;
+                            Salaries[i] = 1000000;
                         }
 
                         break;
@@ -149,7 +149,7 @@ namespace Predicates_on_Collections
             }
         }
 
-        //populating the real list with Jobs
+        //populating the real list with jobs
 
         public void populate_JobList()
         {
@@ -158,7 +158,7 @@ namespace Predicates_on_Collections
 
             for (int i = 0; i < 100; i++)
             {
-                Jobs.Add(new Job(Locations[i], Descriptions[i], Salaries[i]));
+                jobs.Add(new Job(Locations[i], Descriptions[i], Salaries[i]));
             }
         }
 
@@ -171,7 +171,7 @@ namespace Predicates_on_Collections
 
         public void getJobsList()
         {
-            foreach (Job element in Jobs)
+            foreach (Job element in jobs)
             {
                 Console.WriteLine(element.getJobData());
             }
@@ -180,7 +180,7 @@ namespace Predicates_on_Collections
         public int getJobLenght()
         {
             populate_JobList();
-            return Jobs.Count;
+            return jobs.Count;
         }
     }
 }
