@@ -9,6 +9,7 @@ namespace Predicates_on_Collections
     class Job 
     {
         //getters&setters
+        
         public string Location { set; get; }
 
         public string Description { set; get; }
@@ -56,9 +57,10 @@ namespace Predicates_on_Collections
 
         };
 
+        
         //generating methods
 
-
+        //generates a random location and description and stores in a list x100
         public void generate_JobData()
         {
             int JACKPOT = random.Next(1, 20);
@@ -122,7 +124,9 @@ namespace Predicates_on_Collections
                         Descriptions.Add(description.Unemployed.ToString());
                         unemployed_counter++;
                         Salaries[i].Equals(0);
-
+                        
+                        //one unemployed person receives a milli
+                        
                         if (unemployed_counter.Equals(JACKPOT))
                         {
                             Salaries[i] = 1000000;
