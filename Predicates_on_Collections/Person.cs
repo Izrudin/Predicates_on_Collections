@@ -8,7 +8,8 @@ namespace Predicates_on_Collections
 {
     class Person
     {
-        //getters & setters, Job instance cuz its a class
+        //getters & setters, Job instance 
+        
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
