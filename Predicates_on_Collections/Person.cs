@@ -246,7 +246,7 @@ namespace Predicates_on_Collections
 
         //get all people from job location Sonderborg with a salary between 10.000 and 25.000 dkk
         
-        public void salary_between_10_25k_fromSonderborg(List<Person> people) {
+        public void getPeopleWithSalaries_between_10_25k_fromSonderborg(List<Person> people) {
             IEnumerable<Person> returnVal =
                 from person in people
                 where person.Job.Location.Equals("Sonderborg") && ((person.Job.Salary >= 10000) && (person.Job.Salary <= 25000))
