@@ -59,7 +59,8 @@ namespace Predicates_on_Collections
 
         //generating methods
 
-        //generates a random location and description and stores in a list x100
+        //generates a random location and description and stores them in a list x100 times
+       
         public void generate_JobData() {
             for (int i = 0; i < 100; i++)
             {
@@ -125,7 +126,7 @@ namespace Predicates_on_Collections
             }
         }
 
-        //salaries are generated seperately because of logic reasons
+        //salaries are generated seperately
 
         public void generate_Salaries() {
             for (int i = 0; i < 100; i++)
