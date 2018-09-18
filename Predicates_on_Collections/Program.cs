@@ -16,8 +16,9 @@ namespace Predicates_on_Collections
        
             
             Bozhidar.generate_PeopleList();
-            Bozhidar.getAllPeople();
-            Console.ReadKey();
+            Bozhidar.salary_between_10_25k_fromSonderborg(Bozhidar.People);
+
+            Console.ReadLine();
         }
     }
 }

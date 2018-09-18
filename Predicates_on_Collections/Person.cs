@@ -8,8 +8,15 @@ namespace Predicates_on_Collections
 {
     class Person
     {
-        //getters & setters, Job instance 
-        
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ delegates ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        public delegate Person getPersonFromList (List<Person> people);
+
+        public delegate List<Person> getListFromList(List<Person> people);
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ getters & setters, Job instance ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -25,19 +32,19 @@ namespace Predicates_on_Collections
             this.Job = job;
         }
 
-        //for generating people's names
+        //enums for generating people's names
 
         enum first_names 
         {
             Ivan,
             Georgi,
-            Mads,
+            Carl,
             John,
             Guisseppe,
             Andrea,
             Denver,
             Maria,
-            Liliya,
+            Carla,
             Simona
         };
 
@@ -45,25 +52,25 @@ namespace Predicates_on_Collections
         {
             Alexanderson,
             Klausen,
-            DeVrij,
+            Howard,
             Jackson,
             Marco,
             Vidal,
-            Sandoval,
+            Gregsen,
             Martinez,
-            Koch,
-            Horvath
+            Hoch,
+            Larsen
         };
 
 
         //creating lists & a random
 
-        List<Person> People = new List<Person>();
+        public List<Person> People = new List<Person>();
         List<String> FirstNames = new List<string>();
         List<String> LastNames = new List<string>();
         Random random = new Random();
 
-        //generating methods
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~generating methods~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         public void generate_Names()
         {
@@ -81,7 +88,7 @@ namespace Predicates_on_Collections
                         FirstNames.Add(first_names.Georgi.ToString());
                         break;
                     case 3:
-                        FirstNames.Add(first_names.Mads.ToString());
+                        FirstNames.Add(first_names.Carl.ToString());
                         break;
                     case 4:
                         FirstNames.Add(first_names.John.ToString());
@@ -99,7 +106,7 @@ namespace Predicates_on_Collections
                         FirstNames.Add(first_names.Maria.ToString());
                         break;
                     case 9:
-                        FirstNames.Add(first_names.Liliya.ToString());
+                        FirstNames.Add(first_names.Carla.ToString());
                         break;
                     case 10:
                         FirstNames.Add(first_names.Simona.ToString());
@@ -117,7 +124,7 @@ namespace Predicates_on_Collections
                         LastNames.Add(last_names.Klausen.ToString());
                         break;
                     case 3:
-                        LastNames.Add(last_names.DeVrij.ToString());
+                        LastNames.Add(last_names.Howard.ToString());
                         break;
                     case 4:
                         LastNames.Add(last_names.Jackson.ToString());
@@ -129,16 +136,16 @@ namespace Predicates_on_Collections
                         LastNames.Add(last_names.Vidal.ToString());
                         break;
                     case 7:
-                        LastNames.Add(last_names.Sandoval.ToString());
+                        LastNames.Add(last_names.Gregsen.ToString());
                         break;
                     case 8:
                         LastNames.Add(last_names.Martinez.ToString());
                         break;
                     case 9:
-                        LastNames.Add(last_names.Koch.ToString());
+                        LastNames.Add(last_names.Hoch.ToString());
                         break;
                     case 10:
-                        LastNames.Add(last_names.Horvath.ToString());
+                        LastNames.Add(last_names.Larsen.ToString());
                         break;
                     default:
                         break;
@@ -153,50 +160,104 @@ namespace Predicates_on_Collections
         {
             generate_Names();
             Job.populate_JobList();
+
             for (int i = 0; i < 100; i++)
             {
                 People.Add(new Person(FirstNames[i], LastNames[i], Job.jobs[i]));
             }
         }
 
-        //get methods [IMPORTANT]
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ get methods ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
 
-        public String getPersonData(Person person)
+        public void getList(List<Person> people) {
+            for (int i = 0; i < people.Count; i++)
+            {
+                Console.WriteLine("first name: " + people[i].FirstName + ", last name: " + people[i].LastName + ", location: " + people[i].Job.Location + ", description: " + people[i].Job.Description + ", salary: " + people[i].Job.Salary + " dkk\n");
+            }
+        }
+        
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ lambdas ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+        //get a list with all the people with a first names Carl or Carla
+
+
+        public getListFromList Carl_Carla = people =>
         {
-            return ("first name: " + person.FirstName + ", last name: " + person.LastName + ", " + person.Job.getJobData() + "\n");
+            List<Person> carl_carla = new List<Person>();
+            for (int i = 0; i < people.Count; i++)
+            {
+                if (people[i].FirstName.Equals("Carl") || people[i].FirstName.Equals("Carla"))
+                {
+                    carl_carla.Add(people[i]);
+                }
+            }
+            return carl_carla;
+        };
+
+        //get the person with the highest salary
+
+        public getPersonFromList withHighestSalary = people =>
+        {
+            Job jobTest = new Job("", "", 0);
+            Person richestPerson = new Person("", "", jobTest);
+            int salaryChecker = 0;
+
+            for (int i = 0; i < people.Count; i++)
+            {
+                if (people[i].Job.Salary > salaryChecker)
+                {
+                    salaryChecker = people[i].Job.Salary;
+                    richestPerson = people[i];
+                }
+            }
+            return richestPerson;
+        };
+
+        //get a list with all people's surnames starting with H
+
+        public getListFromList lastNameStartingWith_H = people =>
+        {
+            Person personTest = new Person("", "", new Job("", "", 0));
+            List<Person> people_h = new List<Person>();
+            for (int i = 0; i < people.Count; i++)
+            {
+                if ((people[i].LastName.Substring(0, 1)).Equals("H"))
+                {
+                    people_h.Add(people[i]);
+                }
+            }
+            return people_h;
+        };
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ LINQ methods ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        public void getPeopleFromSonderborg(List<Person> people) {
+            IEnumerable<Person> fromSonderborg =
+                from person in people
+                where person.Job.Location.Equals("Sonderborg")
+                select person;
+
+            getList(fromSonderborg.ToList());
+
+        }
+
+        public void salary_between_10_25k_fromSonderborg(List<Person> people) {
+            IEnumerable<Person> returnVal =
+                from person in people
+                where person.Job.Location.Equals("Sonderborg") && ((person.Job.Salary >= 10000) && (person.Job.Salary <= 25000))
+                select person;
+
+            getList(returnVal.ToList());
         }
 
 
-        public void getAllPeople()
+        //get the data of the richest person using this method
+
+        public void getPersonData(Person person)
         {
-            for (int i = 0; i < 100; i++)
-            {
-                Console.WriteLine(getPersonData(People[i]));
-            }
-        }
-
-
-        //get methods [TEST]
-
-
-
-        public void getAllSurnames()
-        {
-            for (int i = 0; i < LastNames.Count(); i++)
-            {
-                Console.WriteLine(LastNames[i]);
-            }
-            Console.WriteLine("\n\n\n========================     number of surnames: " + LastNames.Count() + "     ========================\n\n\n");
-        }
-
-        public void getAllNames()
-        {
-            for (int i = 0; i < FirstNames.Count(); i++)
-            {
-                Console.WriteLine(FirstNames[i]);
-            }
-            Console.WriteLine("\n\n\n========================     number of names: " + FirstNames.Count() + "     ========================\n\n\n");
-            getAllSurnames();
+            Console.WriteLine("first name: " + person.FirstName + ", last name: " + person.LastName + ", location: "+person.Job.Location+ ", description: "+person.Job.Description+", salary: "+person.Job.Salary+" dkk\n");
         }
     }
 }

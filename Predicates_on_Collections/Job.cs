@@ -6,37 +6,36 @@ using System.Threading.Tasks;
 
 namespace Predicates_on_Collections
 {
-    class Job 
+    class Job
     {
         //getters&setters
-        
+
         public string Location { set; get; }
 
         public string Description { set; get; }
 
         public int Salary { set; get; }
-       
+
         //constructor
 
-        public Job(string location, string description, int salary)
-        {
+        public Job(string location, string description, int salary) {
             this.Location = location;
             this.Description = description;
             this.Salary = salary;
         }
 
-     
+
         //creating lists and a random
-        
-        public List<Job> jobs = new List<Job>();     //public because im using it in the Person class
+
+        public List<Job> jobs = new List<Job>();
         List<String> Locations = new List<string>();
         List<String> Descriptions = new List<string>();
-        List<int> Salaries = new List<int>();
+        public List<int> Salaries = new List<int>();
         Random random = new Random();
 
         //for generating job locations and descriptions
 
-        enum location 
+        enum location
         {
             Sonderborg,
             Nordborg,
@@ -53,19 +52,15 @@ namespace Predicates_on_Collections
             Business,
             Basketball,
             Mechanic,
-            Unemployed,
+            Lawyer,
 
         };
 
-        
+
         //generating methods
 
         //generates a random location and description and stores in a list x100
-        public void generate_JobData()
-        {
-            int JACKPOT = random.Next(1, 20);
-            int unemployed_counter = 0;
-
+        public void generate_JobData() {
             for (int i = 0; i < 100; i++)
             {
                 int random_location = random.Next(1, 7);
@@ -121,16 +116,7 @@ namespace Predicates_on_Collections
 
                         break;
                     case 6:
-                        Descriptions.Add(description.Unemployed.ToString());
-                        unemployed_counter++;
-                        Salaries[i].Equals(0);
-                        
-                        //one unemployed person receives a milli
-                        
-                        if (unemployed_counter.Equals(JACKPOT))
-                        {
-                            Salaries[i] = 1000000;
-                        }
+                        Descriptions.Add(description.Lawyer.ToString());
 
                         break;
                     default:
@@ -144,15 +130,14 @@ namespace Predicates_on_Collections
         public void generate_Salaries() {
             for (int i = 0; i < 100; i++)
             {
-                int random_salary = random.Next(8000, 60000);
+                int random_salary = random.Next(8000, 80000);
                 Salaries.Add(random_salary);
             }
         }
 
         //populating the real list with jobs
 
-        public void populate_JobList()
-        {
+        public void populate_JobList() {
             generate_Salaries();
             generate_JobData();
 
@@ -160,27 +145,6 @@ namespace Predicates_on_Collections
             {
                 jobs.Add(new Job(Locations[i], Descriptions[i], Salaries[i]));
             }
-        }
-
-        //"get" methods (for tests mostly)
-
-        public String getJobData()
-        {
-            return ("job location: " + Location + ", job description: " + Description + ", salary: " + Salary);
-        }
-
-        public void getJobsList()
-        {
-            foreach (Job element in jobs)
-            {
-                Console.WriteLine(element.getJobData());
-            }
-        }
-
-        public int getJobLenght()
-        {
-            populate_JobList();
-            return jobs.Count;
         }
     }
 }
