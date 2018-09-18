@@ -219,7 +219,6 @@ namespace Predicates_on_Collections
 
         public getListFromList lastNameStartingWith_H = people =>
         {
-            Person personTest = new Person("", "", new Job("", "", 0));
             List<Person> people_h = new List<Person>();
             for (int i = 0; i < people.Count; i++)
             {
@@ -233,6 +232,8 @@ namespace Predicates_on_Collections
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ LINQ methods ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+        //get all people from job location Sonderborg
+        
         public void getPeopleFromSonderborg(List<Person> people) {
             IEnumerable<Person> fromSonderborg =
                 from person in people
@@ -243,6 +244,8 @@ namespace Predicates_on_Collections
 
         }
 
+        //get all people from job location Sonderborg with a salary between 10.000 and 25.000 dkk
+        
         public void salary_between_10_25k_fromSonderborg(List<Person> people) {
             IEnumerable<Person> returnVal =
                 from person in people
