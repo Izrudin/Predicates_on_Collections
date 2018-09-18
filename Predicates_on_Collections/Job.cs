@@ -56,7 +56,6 @@ namespace Predicates_on_Collections
 
         };
 
-
         //generating methods
 
         //generates a random location and description and stores them in a list x100 times
