@@ -255,7 +255,6 @@ namespace Predicates_on_Collections
             getList(returnVal.ToList());
         }
 
-
         //get the data of the richest person using this method
 
         public void getPersonData(Person person)
