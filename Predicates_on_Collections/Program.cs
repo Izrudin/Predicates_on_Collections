@@ -15,7 +15,7 @@ namespace Predicates_on_Collections
             Person Bozhidar = new Person("firstname", "lastname", job);
        
             Bozhidar.generate_PeopleList();
-            Bozhidar.getPeopleWithSalaries_between_10_25k_fromSonderborg(Bozhidar.People);
+            Bozhidar.getList(Bozhidar.getPeopleFromSonderborg(Bozhidar.People));
 
             Console.ReadLine();
         }

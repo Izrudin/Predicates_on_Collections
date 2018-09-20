@@ -62,7 +62,6 @@ namespace Predicates_on_Collections
             Larsen
         };
 
-
         //creating lists & a random
 
         public List<Person> People = new List<Person>();
@@ -153,7 +152,6 @@ namespace Predicates_on_Collections
             }
         }
 
-
         //generates the actual list of people that we're using for testing the lambdas
 
         public void generate_PeopleList()
@@ -200,8 +198,7 @@ namespace Predicates_on_Collections
 
         public getPersonFromList withHighestSalary = people =>
         {
-            Job jobTest = new Job("", "", 0);
-            Person richestPerson = new Person("", "", jobTest);
+            Person richestPerson = new Person("", "", new Job("","",0));
             int salaryChecker = 0;
 
             for (int i = 0; i < people.Count; i++)
@@ -234,25 +231,28 @@ namespace Predicates_on_Collections
 
         //get all people from job location Sonderborg
         
-        public void getPeopleFromSonderborg(List<Person> people) {
+        public List<Person> getPeopleFromSonderborg(List<Person> people) 
+        {
             IEnumerable<Person> fromSonderborg =
                 from person in people
-                where person.Job.Location.Equals("Sonderborg")
-                select person;
+                    where person.Job.Location.Equals("Sonderborg")
+                        select person;
 
-            getList(fromSonderborg.ToList());
-
+            return fromSonderborg.ToList();
         }
 
         //get all people from job location Sonderborg with a salary between 10.000 and 25.000 dkk
         
-        public void getPeopleWithSalaries_between_10_25k_fromSonderborg(List<Person> people) {
+        public List<Person> getPeopleWithSalaries_between_10_25k_fromSonderborg(List<Person> people) 
+        {
+            //TODO horrible names, must fix
+
             IEnumerable<Person> returnVal =
                 from person in people
-                where person.Job.Location.Equals("Sonderborg") && ((person.Job.Salary >= 10000) && (person.Job.Salary <= 25000))
-                select person;
+                    where person.Job.Location.Equals("Sonderborg") && ((person.Job.Salary >= 10000) && (person.Job.Salary <= 25000))
+                        select person;
 
-            getList(returnVal.ToList());
+            return returnVal.ToList();
         }
 
         //get the data of the richest person using this method
